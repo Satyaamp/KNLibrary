@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Nook Library</title>
+   <link rel="stylesheet" href="style.css">
+   <!-- Font Awesome CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <script src="script.js"></script>
+   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-books">
+                <div class="book">📚</div>
+                <div class="book">📖</div>
+                <div class="book">📝</div>
+                <div class="book">🎓</div>
+                <div class="book">📋</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <h2>📚 Loading Knowledge Nook Library...</h2>
+            <p>Preparing your learning sanctuary</p>
+        </div>
+    </div>
+
+    <div class="container">
+     
+        <!-- Header -->
+        <div class="header">
+        <div class="header-content">
+            <div>
+            <h1>📚 KNOWLEDGE NOOK LIBRARY 🎓</h1>
+            <p>Your Gateway to Academic Excellence</p>
+            </div>
+             <div class="right-header">
+                <a href="gallery.html" class="gallery-link">📸 KNL Gallery</a>
+                <p id="datetime" class="time-date"> </p>
+            </div>
+        </div>
+        </div>
+
+
+
+
+        <!-- Attendance Request -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>📋 Attendance Request</h2>
+                <p>To ensure a smooth and organized experience at our library, we kindly request all visitors to adhere to the following attendance guidelines:</p>
+                
+                <div class="highlight">
+                    <h3>✅ Sign-In Procedure:</h3>
+                    <ul>
+                        <li>All visitors must sign in upon entering the library. This helps us maintain an accurate record of library usage and ensures the safety of our patrons.</li>
+                        <li>Provide your name, allotted seat number, and entry time at the main entrance desk or through our digital check-in system.</li>
+                        <li>Please present your latest payment receipt or payment card.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Library Hours -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>⏰ Library Hours</h2>
+                <div class="highlight">
+                    <h3>🌅 Sunday to Saturday: 24-Hours Available</h3>
+                    <h3>🌙 Night Stay Policy:</h3>
+                    <p>Get in Before 11pm, and exit after 6am. For security reasons, entry and exit are not allowed during these night hours.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Library Services -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>🏢 Library Services</h2>
+                
+                <h3>📖 Study Areas</h3>
+                <ul>
+                    <li><strong>Quiet Study Halls:</strong> For individual study, located as Hall01 & Hall02</li>
+                    <li><strong>Premium Rooms:</strong> For individual study, located as Room01 & Room02</li>
+                    <li><strong>Group Study & Lunch Desks:</strong> Available on the third floor</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Wi-Fi Controls -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>📶 Wi-Fi Controls</h2>
+                
+                <div class="wifi-info">
+                    <h3>🌐 Hall 01:</h3>
+                    <div class="wifi-credential">
+                        <div>
+                            <strong>Network Name:</strong>
+                            <div class="credential-text">Knowledge nook library jio</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('Knowledge nook library jio', this)">📋 Copy</button>
+                    </div>
+                    <div class="wifi-credential">
+                        <div>
+                            <strong>Password:</strong>
+                            <div class="credential-text">Jio@1234</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('Jio@1234', this)">📋 Copy</button>
+                    </div>
+                </div>
+                
+                <div class="wifi-info">
+                    <h3>🌐 Hall 02 + Premium Rooms:</h3>
+                    <div class="wifi-credential">
+                        <div>
+                            <strong>Network Name:</strong>
+                            <div class="credential-text">AirFiber</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('AirFiber', this)">📋 Copy</button>
+                    </div>
+                    <div class="wifi-credential">
+                        <div>
+                            <strong>Password:</strong>
+                            <div class="credential-text">Library#321</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('Library#321', this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Library Etiquette -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>🤝 Library Etiquette</h2>
+                <ul>
+                    <li><strong>🔇 Silence Your Devices:</strong> Please keep your mobile devices silent to maintain a quiet environment.</li>
+                    <li><strong>🤲 Respect Others' Space:</strong> Be mindful of noise levels and personal space.</li>
+                    <li><strong>🍎 Food and Drink:</strong> To maintain cleanliness, food and drinks may have restrictions, but you are welcome to enjoy snacks in the designated lounge areas.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Getting Help -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>🆘 Getting Help</h2>
+                <p>We're always here to assist you. If you have any questions or need help, don't hesitate to ask at the administrative office or simply call <strong>📞 8102003094</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>📞 Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3>📱 Phone Numbers</h3>
+                        <p><a href="tel:7903547986">7903547986</a></p>
+                        <p><a href="tel:9717490285">9717490285</a></p>
+                    </div>
+                    <div class="contact-card">
+                        <h3>📧 Email</h3>
+                        <p><a href="mailto:knowledgenooklibrary@gmail.com">knowledgenooklibrary@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>💬 We'd Love Your Feedback!</h2>
+                <p>Help us improve by leaving a review on:</p>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div class="social-links">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3598.8382892045806!2d85.0559126!3d25.5770463!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed5702dbaafced%3A0x1c743a750c49f75e!2sKnowledge%20Nook%20library!5e0!3m2!1sen!2sin!4v1751706399149!5m2!1sen!2sin" 
+                    width="100%" height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                    <div class="social-links">
+                        <a href="https://www.google.com/maps/place/Knowledge+Nook+library/@25.5770463,85.0559126,17z/data=!4m8!3m7!1s0x39ed5702dbaafced:0x1c743a750c49f75e!8m2!3d25.5770463!4d85.0584875!9m1!1b1!16s%2Fg%2F11sjxlnb16?entry=ttu&g_ep=EgoyMDI1MDMyNS4xIKXMDSoJLDEwMjExNjM5SAFQAw%3D%3D" 
+                            target="_blank" class="social-btn googlemaps">
+                            <i class="fas fa-map-marker-alt"></i> Google Maps
+                        </a>
+
+                        <a href="https://www.justdial.com/Patna/Knowledge-Nook-Library-Khagaul/0612PX612-X612-230329025739-R3V2_BZDET/writereview?city=Patna&area=Khagaul&fid=1669890170160219&prevRating=5&company_name=Knowledge+Nook+Library&nav=1&comment=1" 
+                            target="_blank" class="social-btn justdial">
+                            <i class="fas fa-pen"></i> JustDial Review
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="glass-card">
+            <div class="section">
+                <h2>🎉 Welcome Message</h2>
+                <div class="highlight">
+                    <p>Welcome to our library, a place dedicated to your success! Whether you're here to prepare for exams, advance in your career, or work toward your goals, we are thrilled to have you. This guide will help you make the most of your time and create a focused, productive environment.</p>
+                    <p><strong>🌟 Wishing you success in your journey—happy learning! 📚</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connect With Us -->
+        <div class="glass-card">
+        <div class="section">
+            <h2>🔗 Connect With Us</h2>
+            <div class="social-links">
+            <a href="https://whatsapp.com/channel/0029VaKvZugBKfhxNNqymo2O" target="_blank" class="social-btn whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.youtube.com/@knowledgenooklibrary" target="_blank" class="social-btn youtube">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.instagram.com/knowledge_nook_library/" target="_blank" class="social-btn instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            </div>
+        </div>
+        </div>
+
+
+
+        <div class="glass-card">
+        <div class="section">
+            <h2>🎥 Library Short Video</h2>
+            <iframe width="100%" height="400"
+            src="https://www.youtube.com/embed/_54xmkfyZKE"
+            title="Library Shorts Video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+            </iframe>
+        </div>
+        </div>
+
+    </div>
+
+
+    <script>
+  function updateDateTime() {
+    const now = new Date();
+    const options = {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    };
+    const dt = document.getElementById('datetime');
+    if (dt) {
+      dt.textContent = now.toLocaleString('en-IN', options);
+    }
+  }
+
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+</script>
+
+
+
+</body>
+</html>
