@@ -18,6 +18,165 @@
 
   gtag('config', 'G-MX6FJJN72F');
 </script>
+<style>
+/* =============================
+   Independence Day Banner CSS
+   ============================= */
+
+#independence-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);     /* dim overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 60px 20px;              /* ✅ more space top & bottom */
+    box-sizing: border-box;
+    overflow-y: auto;                /* scroll if taller than screen */
+}
+
+.banner-container {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    margin: 30px 0;                  /* ✅ gap inside overlay */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    overflow: hidden;
+
+    /* Tricolor border */
+    border: 5px solid transparent;
+    background-image: linear-gradient(white, white),
+                      linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+/* 🎉 Tricolor Ribbon Animation (top edge) */
+.banner-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 12px;
+    background: linear-gradient(to right, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+    background-size: 200% 100%;
+    animation: ribbonMove 4s linear infinite;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+@keyframes ribbonMove {
+    0%   { background-position: 0 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* Close button */
+.banner-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #ff4d4d;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: 0.3s;
+}
+.banner-close:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+}
+
+/* Banner heading */
+.banner-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #138808; /* Green */
+    text-shadow: 1px 1px 2px #FF9933;
+}
+
+/* Invitation image */
+.banner-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 3px solid #138808;
+}
+
+/* Text */
+.banner-text {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* CTA Button */
+.banner-cta {
+    background: linear-gradient(to right, #FF9933, #138808);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.banner-cta:hover {
+    background: linear-gradient(to right, #138808, #FF9933);
+    transform: translateY(-2px);
+}
+
+/* =============================
+   Responsive Design
+   ============================= */
+@media (max-width: 768px) {
+    .banner-container {
+        max-width: 90%;
+        padding: 20px;
+    }
+    .banner-content h2 {
+        font-size: 1.5rem;
+    }
+    .banner-text {
+        font-size: 1rem;
+    }
+    .banner-cta {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-container {
+        max-width: 95%;
+        padding: 15px;
+    }
+    .banner-content h2 {
+        font-size: 1.3rem;
+    }
+    .banner-cta {
+        font-size: 0.9rem;
+        padding: 8px 18px;
+    }
+}
+</style>
 
 </head>
 <body>
@@ -34,6 +193,19 @@
             <div class="loading-spinner"></div>
             <h2>📚 Loading Knowledge Nook Library...</h2>
             <p>Preparing your learning sanctuary</p>
+        </div>
+    </div>
+
+    <!-- Independence Day Banner -->
+    <div id="independence-banner" class="banner-overlay">
+        <div class="banner-container">
+            <button class="banner-close" onclick="closeBanner()">&times;</button>
+            <div class="banner-content">
+                <h2>🎉 15th August Independence Day Celebration 🎉</h2>
+                <img src="images/invitation.jpg" alt="15th August Independence Day Invitation" class="banner-image">
+                <p class="banner-text">Join us in celebrating the spirit of freedom and unity!</p>
+                <button class="banner-cta" onclick="closeBanner()">Close Invitation</button>
+            </div>
         </div>
     </div>
 
@@ -287,6 +459,11 @@
   setInterval(updateDateTime, 1000);
 </script>
 
+<script>
+function closeBanner() {
+    document.getElementById("independence-banner").style.display = "none";
+}
+</script>
 
 
 </body>
