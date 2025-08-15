@@ -129,7 +129,7 @@
     top: 60px;
     right: 0;
     width: 200px;
-    background: white;
+    background: rgb(7, 7, 7);
     flex-direction: column;
     align-items: flex-start;
     padding: 15px;
@@ -145,12 +145,6 @@
   .menu-toggle {
     display: block;
   }
-}
-
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #FF9933, 0 0 10px #138808; }
-    to { text-shadow: 0 0 15px #FF9933, 0 0 25px #138808; }
 }
 
 
@@ -187,30 +181,7 @@
             color: white;
             position: relative;
         }
-
-        .loading-spinner {
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid #7877c6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 30px;
-            position: relative;
-            box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
-        }
-
-        .loading-spinner::before {
-            content: '📚';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 32px;
-            animation: bookPulse 2s ease-in-out infinite;
-        }
-
-        
+    
 
         
 
