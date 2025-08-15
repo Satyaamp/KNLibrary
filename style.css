@@ -111,20 +111,7 @@
     animation: glow 2s infinite alternate;
 }
 
-/* Header Base */
-.header {
-  background: #0a192f;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .logo {
   font-size: 18px;
@@ -241,6 +228,11 @@
             font-size: 32px;
             animation: bookPulse 2s ease-in-out infinite;
         }
+
+        
+
+        
+
 
         @keyframes spin {
             0% { transform: rotate(0deg); }

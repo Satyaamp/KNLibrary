@@ -41,7 +41,7 @@
   <header class="header">
     <div class="header-content">
       <a href="index.html" class="logo">
-        📚 <span class="tiranga">Knowledge Nook Library</span>
+        📚 <span class="tiranga knl">Knowledge Nook Library</span>
       </a>
 
       <!-- Hamburger Menu Button -->
@@ -284,12 +284,20 @@
         </div>
 
     </div>
+
 <script>
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
   menuToggle.addEventListener("click", () => {
     navLinks.classList.toggle("active");
+
+    // Toggle between ☰ and ×
+    if (menuToggle.textContent === "☰") {
+      menuToggle.textContent = "✖";  // Close icon
+    } else {
+      menuToggle.textContent = "☰";  // Hamburger icon
+    }
   });
 </script>
 
