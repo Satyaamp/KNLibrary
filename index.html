@@ -37,23 +37,29 @@
         </div>
     </div>
 
-    <div class="container">
-         <header class="header">
+<div class="container">
+  <header class="header">
     <div class="header-content">
       <a href="index.html" class="logo">
-    📚 <span class="tiranga">Knowledge Nook Library</span>
-</a>
+        📚 <span class="tiranga">Knowledge Nook Library</span>
+      </a>
+
+      <!-- Hamburger Menu Button -->
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+
       <nav>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="gallery.html" style="color: #64ffda;">Gallery</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
           <!-- <li><a href="#">About</a></li> -->
-          <li><a href="visiting.html" style="color: #64ffda;">Visiting Card</a></li>
+          <li><a href="visiting.html">Visiting Card</a></li>
           <li><a href="#contact-info">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
+</div>
+
      
         <!-- Header -->
         <!-- <div class="header">
@@ -279,11 +285,11 @@
 
     </div>
 <script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
 
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
   });
 </script>
 
