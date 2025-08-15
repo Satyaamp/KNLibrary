@@ -111,6 +111,67 @@
     animation: glow 2s infinite alternate;
 }
 
+/* Default styling */
+.header {
+  background: #0a192f;
+  padding: 10px 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Hide hamburger on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #64ffda;
+}
+
+/* Responsive part */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #112240;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+
 @keyframes glow {
     from { text-shadow: 0 0 5px #FF9933, 0 0 10px #138808; }
     to { text-shadow: 0 0 15px #FF9933, 0 0 25px #138808; }

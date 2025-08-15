@@ -278,31 +278,14 @@
         </div>
 
     </div>
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
 
-
-    <script>
-  function updateDateTime() {
-    const now = new Date();
-    const options = {
-      weekday: 'short',
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    };
-    const dt = document.getElementById('datetime');
-    if (dt) {
-      dt.textContent = now.toLocaleString('en-IN', options);
-    }
-  }
-
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
 </script>
-
 
 
 </body>
