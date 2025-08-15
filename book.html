@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Booking Coming Soon</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    text-align: center;
+  }
+
+  .container {
+    background: rgba(0,0,0,0.6);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
+    max-width: 500px;
+    animation: glow 1.5s infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
+    to { box-shadow: 0 0 40px #00ffff, 0 0 80px #ff00ff; }
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+
+  #countdown {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚧 Seat Booking Coming Soon! 🚧</h1>
+    <p>We are working on it. Redirecting to gallery in <span id="countdown">10</span> seconds...</p>
+  </div>
+
+<script>
+  let timeLeft = 10;
+  const countdownEl = document.getElementById('countdown');
+
+  const interval = setInterval(() => {
+    timeLeft--;
+    countdownEl.textContent = timeLeft;
+    if(timeLeft <= 0){
+      clearInterval(interval);
+      window.location.href = 'gallery.html'; 
+    }
+  }, 1000);
+</script>
+</body>
+</html>
