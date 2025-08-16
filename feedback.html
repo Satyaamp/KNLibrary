@@ -3,203 +3,1137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Feedback Form</title>
+<title>KNL Feedback</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #111;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  
+  * {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  /* Animated background particles */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+  .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
+  .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
+  .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
+  .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
+  .particle:nth-child(6) { width: 7px; height: 7px; left: 60%; animation-delay: 5s; }
+  .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 1.5s; }
+  .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 2.5s; }
+  .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 3.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(100vh) scale(0); }
+    10% { transform: translateY(90vh) scale(1); }
+    90% { transform: translateY(-10vh) scale(1); }
   }
 
   .form-container {
-    background: #222;
-    padding: 40px 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 420px;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 50px 40px;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  h2 {
-    margin-bottom: 30px;
-    font-size: 28px;
-    color: #0ff;
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(50px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .form-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .form-header p {
+    color: #6b7280;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    margin: 30px 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .form-group {
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .form-group:nth-child(1) { animation-delay: 0.1s; }
+  .form-group:nth-child(2) { animation-delay: 0.2s; }
+  .form-group:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .input-container {
+    position: relative;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #9ca3af;
+    transition: color 0.3s ease;
+    z-index: 2;
   }
 
   input, textarea {
     width: 100%;
-    padding: 14px 12px;
-    border: 2px solid #444;
-    border-radius: 12px;
-    font-size: 14px;
-    background: #111;
-    color: #fff;
+    padding: 18px 20px 18px 55px;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    background: #fafafa;
+    color: #1f2937;
     outline: none;
-    transition: 0.3s, box-shadow 0.3s, border-color 0.3s;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
   }
 
-  textarea { resize: none; }
+  textarea {
+    padding-left: 20px;
+    min-height: 120px;
+    resize: vertical;
+    font-family: 'Inter', sans-serif;
+  }
 
   input:focus, textarea:focus {
-    border-color: #0ff;
-    box-shadow: 0 0 8px #0ff;
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
   }
 
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    color: #aaa;
-    text-align: left;
+  input:focus + .input-icon {
+    color: #667eea;
   }
 
-  .valid { border-color: #0f0; box-shadow: 0 0 8px #0f0; }
-  .invalid { border-color: #f00; box-shadow: 0 0 8px #f00; }
+  .floating-label {
+    position: absolute;
+    left: 55px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 16px;
+    font-weight: 400;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: linear-gradient(to bottom, transparent 50%, #fafafa 50%);
+  }
+
+  textarea + .floating-label {
+    left: 20px;
+    top: 35px;
+    background: linear-gradient(to bottom, transparent 50%, #fafafa 50%);
+  }
+
+  input:focus + .floating-label,
+  input:not(:placeholder-shown) + .floating-label {
+    transform: translateY(-40px) scale(0.85);
+    color: #667eea;
+    font-weight: 500;
+    background: #fff;
+    padding: 0 8px;
+    border-radius: 4px;
+    left: 16px;
+  }
+
+  textarea:focus + .floating-label,
+  textarea:not(:placeholder-shown) + .floating-label {
+    transform: translateY(-40px) scale(0.85);
+    color: #667eea;
+    font-weight: 500;
+    background: #fff;
+    padding: 0 8px;
+    border-radius: 4px;
+  }
+
+  input:focus + .floating-label {
+    color: #667eea;
+  }
+
+  .validation-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .valid {
+    border-color: #10b981;
+    background: #f0fdf4;
+  }
+
+  .valid .validation-icon {
+    opacity: 1;
+    color: #10b981;
+  }
+
+  .valid .floating-label {
+    color: #10b981;
+  }
+
+  .invalid {
+    border-color: #ef4444;
+    background: #fef2f2;
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .invalid .validation-icon {
+    opacity: 1;
+    color: #ef4444;
+  }
+
+  .invalid .floating-label {
+    color: #ef4444;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
 
   .error-msg {
-    color: #f00;
-    font-size: 12px;
-    text-align: left;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 8px;
     display: none;
+    animation: slideDown 0.3s ease-out;
   }
 
-  button {
+  @keyframes slideDown {
+    from { 
+      opacity: 0; 
+      transform: translateY(-10px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .submit-btn {
     width: 100%;
-    padding: 16px;
+    padding: 18px;
     border: none;
-    border-radius: 15px;
+    border-radius: 16px;
     font-size: 16px;
-    font-weight: 700;
-    color: #000;
-    background: linear-gradient(45deg, #0ff, #0f0);
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s ease-in-out, background 0.3s;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 20px;
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
   }
 
-  button:hover { transform: scale(1.05); background: linear-gradient(45deg, #0f0, #0ff); }
+  .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+  }
 
+  .submit-btn:active {
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-text {
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-loading .btn-text {
+    opacity: 0;
+  }
+
+  .btn-queued .btn-text {
+    opacity: 0;
+  }
+
+  .submit-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-loading .submit-icon {
+    transform: scale(0);
+  }
+
+  /* Loading spinner */
   .spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid #000;
-    border-top: 3px solid #0ff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -10px 0 0 -10px;
-    display: none;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .btn-loading .spinner {
+    opacity: 1;
+  }
 
-  #successMsg {
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* Queue animation container */
+  .queue-animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .btn-queued .queue-animation {
+    opacity: 1;
+  }
+
+  .queue-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Animated queue icon */
+  .queue-bars {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .queue-bar {
+    width: 3px;
+    background: #fff;
+    border-radius: 1px;
+    animation: queuePulse 1.5s ease-in-out infinite;
+  }
+
+  .queue-bar:nth-child(1) {
+    height: 8px;
+    animation-delay: 0s;
+  }
+
+  .queue-bar:nth-child(2) {
+    height: 12px;
+    animation-delay: 0.2s;
+  }
+
+  .queue-bar:nth-child(3) {
+    height: 6px;
+    animation-delay: 0.4s;
+  }
+
+  .queue-bar:nth-child(4) {
+    height: 10px;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes queuePulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* Floating dots animation */
+  .queue-dots {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 5px;
+  }
+
+  .queue-dot {
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    animation: queueDots 1.8s ease-in-out infinite;
+  }
+
+  .queue-dot:nth-child(1) { animation-delay: 0s; }
+  .queue-dot:nth-child(2) { animation-delay: 0.3s; }
+  .queue-dot:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes queueDots {
+    0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+    30% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Processing wave animation */
+  .processing-wave {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent
+    );
+    animation: processWave 2s ease-in-out infinite;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-queued .processing-wave {
+    opacity: 1;
+  }
+
+  @keyframes processWave {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Button state transitions */
+  .btn-clicked {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Enhanced success state */
+  .btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    transform: scale(1.05);
+    animation: successPulse 0.6s ease-out;
+  }
+
+  @keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1.05); }
+  }
+
+  .success-animation {
     display: none;
-    margin-top: 20px;
-    color: #0f0;
-    font-weight: 700;
     text-align: center;
+    animation: successSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes successSlide {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.8) translateY(30px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 36px;
+    animation: bounceIn 0.6s ease-out 0.2s backwards;
+  }
+
+  @keyframes bounceIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .success-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+  }
+
+  .success-message {
+    color: #6b7280;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Sound toggle button */
+  .sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sound-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .sound-toggle.muted {
+    opacity: 0.5;
+  }
+
+  @media (max-width: 600px) {
+    .form-container {
+      padding: 30px 25px;
+      border-radius: 20px;
+    }
+    
+    .form-header h2 {
+      font-size: 26px;
+    }
+    
+    input, textarea {
+      padding: 16px 18px 16px 50px;
+      font-size: 15px;
+    }
+    
+    .floating-label {
+      left: 50px;
+      font-size: 15px;
+    }
+    
+    textarea + .floating-label {
+      left: 18px;
+    }
+
+    .sound-toggle {
+      top: 10px;
+      right: 10px;
+      padding: 10px 14px;
+      font-size: 16px;
+    }
   }
 </style>
 </head>
 <body>
-<div class="form-container">
-  <h2>📩 Feedback</h2>
-  <form id="feedbackForm" novalidate>
-    <div class="form-group">
-      <label for="name">👤 Name</label>
-      <input type="text" id="name" name="name" required>
-      <div class="error-msg">Name is required</div>
-    </div>
+  <!-- Sound toggle button -->
+  <button class="sound-toggle" id="soundToggle" title="Toggle Sound">🔊</button>
 
-    <div class="form-group">
-      <label for="phone">📞 Phone</label>
-      <input type="tel" id="phone" name="phone" maxlength="10" required>
-      <div class="error-msg">Phone must be 10 digits</div>
-    </div>
-
-    <div class="form-group">
-      <label for="message">💬 Message</label>
-      <textarea id="message" name="message" rows="4" required></textarea>
-      <div class="error-msg">Message cannot be empty</div>
-    </div>
-
-    <button type="submit">🚀 Submit
-      <div class="spinner" id="spinner"></div>
-    </button>
-  </form>
-
-  <div id="successMsg">
-    ✅ Your response has been sent. We will contact you soon!
+  <!-- Animated background particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
   </div>
-</div>
 
-<script>
- const scriptURL = "https://script.google.com/macros/s/AKfycbz8M4GmVz2Kk1QcbFcBYicej5-89Albsq73pDj66qNu4DSiYR1jpxb-oAuZXFbMKOo5Fg/exec";
-  const form = document.getElementById("feedbackForm");
-  const spinner = document.getElementById("spinner");
-  const submitBtn = form.querySelector("button");
-  const successMsg = document.getElementById("successMsg");
+  <div class="form-container">
+    <div class="form-header">
+      <h2>Share Your Feedback</h2>
+      <p>We'd love to hear your thoughts and suggestions</p>
+    </div>
 
-  const nameInput = document.getElementById("name");
-  const phoneInput = document.getElementById("phone");
-  const messageInput = document.getElementById("message");
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
 
-  function validateField(input, errorDiv, condition) {
-    if(condition){
-      input.classList.remove("invalid"); input.classList.add("valid"); errorDiv.style.display="none";
-      return true;
-    } else {
-      input.classList.remove("valid"); input.classList.add("invalid"); errorDiv.style.display="block";
-      return false;
+    <form id="feedbackForm" novalidate>
+      <div class="form-group">
+        <div class="input-container">
+          <div class="input-icon">👤</div>
+          <input type="text" id="name" name="name" placeholder=" " required>
+          <label for="name" class="floating-label">Your Name</label>
+          <div class="validation-icon" id="nameIcon">✓</div>
+        </div>
+        <div class="error-msg" id="nameError">Please enter your name</div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-container">
+          <div class="input-icon">📱</div>
+          <input type="tel" id="phone" name="phone" placeholder=" " maxlength="10" required>
+          <label for="phone" class="floating-label">Phone Number</label>
+          <div class="validation-icon" id="phoneIcon">✓</div>
+        </div>
+        <div class="error-msg" id="phoneError">Please enter a valid 10-digit phone number</div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-container">
+          <textarea id="message" name="message" placeholder=" " required></textarea>
+          <label for="message" class="floating-label">Your Message</label>
+          <div class="validation-icon" id="messageIcon">✓</div>
+        </div>
+        <div class="error-msg" id="messageError">Please enter your message</div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Send Feedback</span>
+        <div class="spinner"></div>
+      </button>
+    </form>
+
+    <div class="success-animation" id="successAnimation">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Thank You!</div>
+      <div class="success-message">
+        Your feedback has been sent successfully.<br>
+        We'll get back to you soon!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Audio Context for generating sounds
+    class SoundEffects {
+      constructor() {
+        this.audioContext = null;
+        this.enabled = true;
+        this.initAudioContext();
+      }
+
+      initAudioContext() {
+        try {
+          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+          console.log('Audio not supported');
+        }
+      }
+
+      async resumeAudioContext() {
+        if (this.audioContext && this.audioContext.state === 'suspended') {
+          await this.audioContext.resume();
+        }
+      }
+
+      // Typing sound effect
+      playTypingSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(800 + Math.random() * 200, this.audioContext.currentTime);
+        oscillator.type = 'square';
+        
+        gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.1);
+      }
+
+      // Success validation sound
+      playSuccessSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(523.25, this.audioContext.currentTime); // C5
+        oscillator.frequency.setValueAtTime(659.25, this.audioContext.currentTime + 0.1); // E5
+        oscillator.frequency.setValueAtTime(783.99, this.audioContext.currentTime + 0.2); // G5
+        
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.4);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.4);
+      }
+
+      // Error validation sound
+      playErrorSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(200, this.audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(150, this.audioContext.currentTime + 0.1);
+        
+        oscillator.type = 'sawtooth';
+        
+        gainNode.gain.setValueAtTime(0.15, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.3);
+      }
+
+      // Button click sound
+      playClickSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(1000, this.audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.1);
+      }
+
+      // Submission success fanfare
+      playFanfareSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        const timing = [0, 0.15, 0.3, 0.45];
+        
+        notes.forEach((frequency, index) => {
+          const oscillator = this.audioContext.createOscillator();
+          const gainNode = this.audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(this.audioContext.destination);
+          
+          oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime + timing[index]);
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime + timing[index]);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + timing[index] + 0.5);
+          
+          oscillator.start(this.audioContext.currentTime + timing[index]);
+          oscillator.stop(this.audioContext.currentTime + timing[index] + 0.5);
+        });
+      }
+
+      // Progress sound (ascending tone)
+      playProgressSound(progress) {
+        if (!this.enabled || !this.audioContext) return;
+        
+        this.resumeAudioContext();
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        const baseFreq = 400;
+        const frequency = baseFreq + (progress * 300); // Higher pitch as progress increases
+        
+        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.15, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.2);
+      }
+
+      toggle() {
+        this.enabled = !this.enabled;
+        return this.enabled;
+      }
+
+      isEnabled() {
+        return this.enabled;
+      }
     }
-  }
 
-  nameInput.addEventListener("input", () => validateField(nameInput, nameInput.nextElementSibling, nameInput.value.trim() !== ""));
-  phoneInput.addEventListener("input", () => validateField(phoneInput, phoneInput.nextElementSibling, /^\d{10}$/.test(phoneInput.value)));
-  messageInput.addEventListener("input", () => validateField(messageInput, messageInput.nextElementSibling, messageInput.value.trim() !== ""));
+    // Initialize sound effects
+    const soundEffects = new SoundEffects();
 
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    const validName = validateField(nameInput, nameInput.nextElementSibling, nameInput.value.trim() !== "");
-    const validPhone = validateField(phoneInput, phoneInput.nextElementSibling, /^\d{10}$/.test(phoneInput.value));
-    const validMessage = validateField(messageInput, messageInput.nextElementSibling, messageInput.value.trim() !== "");
+    // Sound toggle functionality
+    const soundToggle = document.getElementById('soundToggle');
+    soundToggle.addEventListener('click', () => {
+      const enabled = soundEffects.toggle();
+      soundToggle.textContent = enabled ? '🔊' : '🔇';
+      soundToggle.classList.toggle('muted', !enabled);
+      soundToggle.title = enabled ? 'Disable Sound' : 'Enable Sound';
+      
+      if (enabled) {
+        soundEffects.playClickSound();
+      }
+    });
 
-    if(!validName || !validPhone || !validMessage) return;
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz8M4GmVz2Kk1QcbFcBYicej5-89Albsq73pDj66qNu4DSiYR1jpxb-oAuZXFbMKOo5Fg/exec";
+    const form = document.getElementById("feedbackForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const successAnimation = document.getElementById("successAnimation");
+    const progressFill = document.getElementById("progressFill");
 
-    spinner.style.display = "block";
-    submitBtn.disabled = true;
+    const nameInput = document.getElementById("name");
+    const phoneInput = document.getElementById("phone");
+    const messageInput = document.getElementById("message");
 
-    fetch(scriptURL, { method: "POST", body: new FormData(form) })
-      .then(() => {
-        spinner.style.display = "none";
-        form.style.display = "none";
-        successMsg.style.display = "block";
-        setTimeout(()=> window.location.href="index.html", 5000);
-      })
-      .catch(err => {
-        spinner.style.display = "none";
-        submitBtn.disabled = false;
+    let validFields = 0;
+    let lastProgress = 0;
+
+    function updateProgress() {
+      const progress = (validFields / 3) * 100;
+      progressFill.style.width = progress + "%";
+      
+      // Play progress sound if progress increased
+      if (progress > lastProgress) {
+        soundEffects.playProgressSound(progress / 100);
+      }
+      lastProgress = progress;
+    }
+
+    function validateField(input, errorElement, iconElement, condition) {
+      const isValid = condition();
+      
+      if (isValid) {
+        input.classList.remove("invalid");
+        input.classList.add("valid");
+        errorElement.style.display = "none";
+        iconElement.textContent = "✓";
+        
+        if (!input.dataset.wasValid) {
+          input.dataset.wasValid = "true";
+          validFields++;
+          soundEffects.playSuccessSound();
+        }
+      } else {
+        input.classList.remove("valid");
+        input.classList.add("invalid");
+        errorElement.style.display = "block";
+        iconElement.textContent = "✕";
+        
+        if (input.dataset.wasValid) {
+          input.dataset.wasValid = "false";
+          validFields--;
+          soundEffects.playErrorSound();
+        }
+      }
+      
+      updateProgress();
+      return isValid;
+    }
+
+    // Real-time validation with enhanced UX and sound effects
+    nameInput.addEventListener("input", (e) => {
+      if (e.inputType) { // Only play typing sound for actual typing
+        soundEffects.playTypingSound();
+      }
+      
+      setTimeout(() => {
+        validateField(
+          nameInput, 
+          document.getElementById("nameError"), 
+          document.getElementById("nameIcon"),
+          () => nameInput.value.trim().length >= 2
+        );
+      }, 300);
+    });
+
+    phoneInput.addEventListener("input", (e) => {
+      // Only allow numbers
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      
+      if (e.inputType) {
+        soundEffects.playTypingSound();
+      }
+      
+      setTimeout(() => {
+        validateField(
+          phoneInput, 
+          document.getElementById("phoneError"), 
+          document.getElementById("phoneIcon"),
+          () => /^\d{10}$/.test(phoneInput.value)
+        );
+      }, 300);
+    });
+
+    messageInput.addEventListener("input", (e) => {
+      if (e.inputType) {
+        soundEffects.playTypingSound();
+      }
+      
+      setTimeout(() => {
+        validateField(
+          messageInput, 
+          document.getElementById("messageError"), 
+          document.getElementById("messageIcon"),
+          () => messageInput.value.trim().length >= 10
+        );
+      }, 300);
+    });
+
+    // Button click sound
+    submitBtn.addEventListener('click', () => {
+      soundEffects.playClickSound();
+    });
+
+    // Enhanced form submission with animations and sounds
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      // Final validation
+      const validName = validateField(
+        nameInput, 
+        document.getElementById("nameError"), 
+        document.getElementById("nameIcon"),
+        () => nameInput.value.trim().length >= 2
+      );
+      
+      const validPhone = validateField(
+        phoneInput, 
+        document.getElementById("phoneError"), 
+        document.getElementById("phoneIcon"),
+        () => /^\d{10}$/.test(phoneInput.value)
+      );
+      
+      const validMessage = validateField(
+        messageInput, 
+        document.getElementById("messageError"), 
+        document.getElementById("messageIcon"),
+        () => messageInput.value.trim().length >= 10
+      );
+
+      if (!validName || !validPhone || !validMessage) {
+        // Shake animation for invalid form with error sound
+        soundEffects.playErrorSound();
+        form.style.animation = "shake 0.5s ease-in-out";
+        setTimeout(() => {
+          form.style.animation = "";
+        }, 500);
+        return;
+      }
+
+      // Loading state
+      submitBtn.classList.add("btn-loading");
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: new FormData(form)
+        });
+
+        if (response.ok) {
+          // Success animation with fanfare sound
+          setTimeout(() => {
+            soundEffects.playFanfareSound();
+            form.style.display = "none";
+            successAnimation.style.display = "block";
+            
+            // Confetti effect
+            createConfetti();
+            
+            // Redirect after delay
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 4000);
+          }, 1000);
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        soundEffects.playErrorSound();
         alert("Something went wrong. Please try again.");
-        console.error(err);
+        submitBtn.classList.remove("btn-loading");
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Confetti animation
+    function createConfetti() {
+      const colors = ['#667eea', '#764ba2', '#10b981', '#f59e0b', '#ef4444'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.pointerEvents = 'none';
+        confetti.style.zIndex = '1000';
+        confetti.style.animation = `confettiFall ${2 + Math.random() * 3}s linear forwards`;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+
+    // Add confetti animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(-10px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize progress
+    updateProgress();
+
+    // Enable audio context on first user interaction
+    document.addEventListener('click', () => {
+      soundEffects.resumeAudioContext();
+    }, { once: true });
+
+    // Focus sound effects
+    const inputs = [nameInput, phoneInput, messageInput];
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        soundEffects.playClickSound();
       });
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
