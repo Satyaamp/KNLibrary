@@ -122,6 +122,48 @@
   color: #fff;
 }
 
+/* Feedback Section */
+.feedback-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+.feedback-btn {
+    display: inline-block;
+    padding: 12px 25px;        /* slightly bigger for better click area */
+    margin-top: 10px;
+    background: #ff5722;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;       /* smoother corners */
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Hover effect */
+.feedback-btn:hover {
+    background: #e64a19;
+    transform: translateY(-4px);   /* slight bounce */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Optional subtle pulse animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.feedback-btn.pulse {
+    animation: pulse 2s infinite;
+}
+
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-links {
@@ -195,6 +237,28 @@
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.1); }
         }
+
+        /* Typewriter Effect */
+.typewriter {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 2px solid #fff; /* cursor */
+    white-space: nowrap;
+    letter-spacing: 2px;
+    animation: typing 3s steps(40, end), blink 0.7s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Cursor blink */
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: white; }
+}
 
         .whatsapp-btn {
                 display: inline-block;

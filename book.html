@@ -5,71 +5,286 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seat Booking Coming Soon</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #fff;
-    text-align: center;
-  }
+  body { margin:0; font-family:'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:#fff; display:flex; justify-content:center; align-items:flex-start; padding:20px; transition: background 0.3s; }
+  .container { background: rgba(0,0,0,0.8); padding:30px; border-radius:20px; width:700px; box-shadow:0 0 30px #00ffff,0 0 60px #ff00ff; transition: box-shadow 0.3s; }
+  h1 { color:#00ffff; text-shadow:0 0 5px #00ffff,0 0 10px #ff00ff; text-align:center; }
+  a { color:#00ffff; text-decoration:underline; font-weight:bold; }
+  #quizArea { background: rgba(255,255,255,0.05); margin-top:20px; padding:20px; border-radius:15px; text-align:center; transition: box-shadow 0.3s; }
+  button,input,select { padding:8px 12px; border-radius:8px; border:none; font-size:16px; margin:5px; cursor:pointer; font-weight:bold; }
+  .score { font-size:18px; color:#00ffcc; text-shadow:0 0 5px #00ffcc; }
+  button.option-btn { background:#ff00ff;color:#fff; }
+  #timer { font-size:16px; color:#ffd700; margin-top:10px; }
+  #progressContainer { background:#222; border-radius:10px; height:20px; margin:10px 0; }
+  #progressBar { background:#00ffff; height:100%; width:0%; border-radius:10px; transition: width 0.3s; }
 
-  .container {
-    background: rgba(0,0,0,0.6);
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
-    max-width: 500px;
-    animation: glow 1.5s infinite alternate;
-  }
-
-  @keyframes glow {
-    from { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
-    to { box-shadow: 0 0 40px #00ffff, 0 0 80px #ff00ff; }
-  }
-
-  h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #00ffff;
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
-  }
-
-  p {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #fff;
-  }
-
-  #countdown {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff00ff;
-    text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff;
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 5px #ff9900; }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px #ffcc00; }
+    100% { transform: scale(1); box-shadow: 0 0 5px #ff9900; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🚧 Seat Booking Coming Soon! 🚧</h1>
-    <p>We are working on it. Redirecting to gallery in <span id="countdown">10</span> seconds...</p>
+<div class="container">
+  <h1>🚧 Seat Booking Coming Soon! 🚧</h1>
+  <p>While we prepare the seat booking, feel free to <a href="gallery.html">explore our library gallery 📚✨</a> and enjoy the quiz!</p>
+
+  <!-- Quiz -->
+  <div id="quizArea">
+    <h3>Quiz Time! 🧠</h3>
+    <div id="quizSetup">
+      <label for="numQuestions">Select number of questions (5 multiples):</label>
+      <select id="numQuestions"></select>
+      <button id="startQuizBtn" style="background:#00ffff;color:#000;">Brain Your Mind 🧠 Start Quiz</button>
+    </div>
+
+    <div id="quizContent" style="display:none;">
+      <p id="quizQuestion" style="color:#00ffff;"></p>
+      <div id="options"></div>
+      <div id="progressContainer"><div id="progressBar"></div></div>
+      <p id="timer">Time: 15s</p>
+      <p class="score">Score: <span id="quizScore">0</span></p>
+      <p id="quizMessage"></p>
+      <button id="hintBtn" style="background:#ff9900;">50-50</button>
+     
+    </div>
   </div>
+</div>
+
+<!-- Audio -->
+<audio id="correctSound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+<audio id="wrongSound" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+<audio id="thinkingSound" src="https://www.soundjay.com/button/sounds/beep-07.mp3"></audio>
 
 <script>
-  let timeLeft = 10;
-  const countdownEl = document.getElementById('countdown');
+/* ==== GK / CURRENT AFFAIRS / APTITUDE QUIZ ==== */
+const quizQuestions = [
+  // General Knowledge
+  {question:"Who is the current President of India?", options:["Droupadi Murmu","Ram Nath Kovind","Pratibha Patil","Pranab Mukherjee"], answer:"Droupadi Murmu"},
+  {question:"The capital of Australia is?", options:["Sydney","Melbourne","Canberra","Perth"], answer:"Canberra"},
+  {question:"Largest planet in our Solar System?", options:["Earth","Saturn","Jupiter","Mars"], answer:"Jupiter"},
+  {question:"Who wrote 'Ramayana'?", options:["Valmiki","Kalidasa","Tulsidas","Vyasa"], answer:"Valmiki"},
+  {question:"H2O is the chemical formula of?", options:["Water","Hydrogen Peroxide","Oxygen","Hydrogen"], answer:"Water"},
+  {question:"Which country is known as the Land of Rising Sun?", options:["China","Japan","Thailand","South Korea"], answer:"Japan"},
+  {question:"The currency of USA is?", options:["Dollar","Euro","Pound","Yen"], answer:"Dollar"},
+  {question:"Which organ purifies our blood?", options:["Heart","Kidney","Liver","Lungs"], answer:"Kidney"},
+  {question:"Who invented the light bulb?", options:["Thomas Edison","Nikola Tesla","Alexander Graham Bell","James Watt"], answer:"Thomas Edison"},
+  {question:"The largest desert in the world?", options:["Sahara","Gobi","Kalahari","Thar"], answer:"Sahara"},
 
-  const interval = setInterval(() => {
+  // Current Affairs
+  {question:"The Nobel Prize in Physics 2023 was awarded to?", options:["Pierre Agostini","Ferenc Krausz","Anne L’Huillier","All of the above"], answer:"All of the above"},
+  {question:"Who is the current Prime Minister of India?", options:["Narendra Modi","Manmohan Singh","Atal Bihari Vajpayee","Rahul Gandhi"], answer:"Narendra Modi"},
+  {question:"Which country will host the 2028 Summer Olympics?", options:["France","USA","Japan","Australia"], answer:"USA"},
+  {question:"G20 Summit 2024 will be hosted by?", options:["India","China","Brazil","Germany"], answer:"India"},
+  {question:"Who is the CEO of Tesla in 2024?", options:["Elon Musk","Jeff Bezos","Bill Gates","Mark Zuckerberg"], answer:"Elon Musk"},
+  {question:"Which company recently merged with Twitter?", options:["Elon Musk","Google","Meta","Microsoft"], answer:"Elon Musk"},
+  {question:"Current RBI Governor of India?", options:["Shaktikanta Das","Urjit Patel","Raghuram Rajan","Duvvuri Subbarao"], answer:"Shaktikanta Das"},
+  {question:"Which country recently launched Chandrayaan-3?", options:["India","USA","China","Russia"], answer:"India"},
+  {question:"UN Headquarters is located in?", options:["Geneva","New York","London","Paris"], answer:"New York"},
+  {question:"Who won the FIFA World Cup 2022?", options:["Argentina","France","Brazil","Germany"], answer:"Argentina"},
+
+  // Aptitude / Reasoning
+  {question:"5 + 7 × 2 = ?", options:["19","24","17","26"], answer:"19"},
+  {question:"Square root of 144?", options:["10","11","12","13"], answer:"12"},
+  {question:"If 2x + 5 = 15, then x = ?", options:["5","10","7","8"], answer:"5"},
+  {question:"Find the next number: 2, 4, 8, 16, ?", options:["18","24","32","20"], answer:"32"},
+  {question:"If 60% of 200 = ?", options:["100","120","80","140"], answer:"120"},
+  {question:"Simplify: 15 ÷ 3 × 2", options:["5","10","8","12"], answer:"10"},
+  {question:"Which number is prime?", options:["21","17","27","9"], answer:"17"},
+  {question:"Find LCM of 4 and 6", options:["12","24","10","18"], answer:"12"},
+  {question:"Find HCF of 18 and 24", options:["3","6","9","12"], answer:"6"},
+  {question:"What comes next: A, C, E, G, ?", options:["H","I","F","K"], answer:"I"},
+
+  // More GK
+  {question:"Which gas is essential for photosynthesis?", options:["Oxygen","Carbon Dioxide","Nitrogen","Hydrogen"], answer:"Carbon Dioxide"},
+  {question:"Fastest land animal?", options:["Cheetah","Tiger","Lion","Leopard"], answer:"Cheetah"},
+  {question:"The Great Wall of China was built to protect against?", options:["Mongols","Russians","Persians","Turks"], answer:"Mongols"},
+  {question:"Who painted the Mona Lisa?", options:["Leonardo da Vinci","Michelangelo","Raphael","Vincent Van Gogh"], answer:"Leonardo da Vinci"},
+  {question:"Which is the smallest continent?", options:["Europe","Australia","Antarctica","South America"], answer:"Australia"},
+  {question:"Which planet is known as Red Planet?", options:["Mars","Venus","Jupiter","Saturn"], answer:"Mars"},
+  {question:"The first human in space?", options:["Yuri Gagarin","Neil Armstrong","Buzz Aldrin","Valentina Tereshkova"], answer:"Yuri Gagarin"},
+  {question:"The longest river in the world?", options:["Nile","Amazon","Yangtze","Mississippi"], answer:"Nile"},
+  {question:"Who discovered penicillin?", options:["Alexander Fleming","Louis Pasteur","Marie Curie","Robert Koch"], answer:"Alexander Fleming"},
+  {question:"The primary source of energy for Earth?", options:["Wind","Sun","Water","Geothermal"], answer:"Sun"},
+
+  // More Current Affairs / Aptitude
+  {question:"Solve: 25 × 4 + 12 ÷ 3 = ?", options:["104","100","102","96"], answer:"102"},
+  {question:"If x = 5, then 3x + 7 = ?", options:["15","22","20","17"], answer:"22"},
+  {question:"The latest World Bank President?", options:["Ajay Banga","David Malpass","Kristalina Georgieva","Jim Yong Kim"], answer:"Ajay Banga"},
+  {question:"Which country won the 2023 ICC Cricket World Cup?", options:["India","Australia","England","Pakistan"], answer:"India"},
+  {question:"Simplify: 18 ÷ (3 × 2)", options:["2","3","4","6"], answer:"3"},
+  {question:"Next in series: 3, 6, 9, 12, ?", options:["14","15","16","18"], answer:"15"},
+  {question:"Which Indian state is known as 'God’s Own Country'?", options:["Kerala","Goa","Karnataka","Tamil Nadu"], answer:"Kerala"},
+  {question:"The chemical symbol for Gold?", options:["Au","Ag","Gd","Go"], answer:"Au"},
+  {question:"Current Chief Justice of India (2024)?", options:["D.Y. Chandrachud","N.V. Ramana","Ranjan Gogoi","K.K. Venugopal"], answer:"D.Y. Chandrachud"},
+  {question:"Who is the founder of Microsoft?", options:["Bill Gates","Steve Jobs","Mark Zuckerberg","Elon Musk"], answer:"Bill Gates"},
+
+  // More GK & Aptitude
+  {question:"If 20% of a number is 50, then number is?", options:["200","250","300","180"], answer:"250"},
+  {question:"Convert 1010 (binary) to decimal?", options:["10","12","14","8"], answer:"10"},
+  {question:"The freezing point of water in Fahrenheit?", options:["0°F","32°F","100°F","212°F"], answer:"32°F"},
+  {question:"The SI unit of force?", options:["Newton","Joule","Pascal","Watt"], answer:"Newton"},
+  {question:"Who discovered gravity?", options:["Newton","Einstein","Galileo","Tesla"], answer:"Newton"},
+  {question:"Which vitamin is produced when skin is exposed to sunlight?", options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], answer:"Vitamin D"},
+  {question:"Find 15% of 200?", options:["25","30","35","40"], answer:"30"},
+  {question:"If train A travels 60 km/h for 2 hours, distance covered?", options:["100 km","120 km","150 km","180 km"], answer:"120 km"},
+  {question:"Which is the largest mammal?", options:["Elephant","Blue Whale","Giraffe","Hippo"], answer:"Blue Whale"},
+  {question:"Who is called 'Father of Computers'?", options:["Charles Babbage","Alan Turing","John von Neumann","Konrad Zuse"], answer:"Charles Babbage"}
+];
+
+const numQuestionsSelect = document.getElementById('numQuestions');
+for(let i=5;i<=quizQuestions.length;i+=5){
+  const opt = document.createElement('option'); opt.value = i; opt.textContent = i; numQuestionsSelect.appendChild(opt);
+}
+
+let shuffledQuestions=[], quizIndex=0, quizScore=0, timeLeft=15, timer, startTime, thinkingTimer;
+
+const quizContent = document.getElementById('quizContent');
+const quizSetup = document.getElementById('quizSetup');
+const quizScoreEl = document.getElementById('quizScore');
+const progressBar = document.getElementById('progressBar');
+const quizMessage = document.getElementById('quizMessage');
+
+const correctSound = document.getElementById('correctSound');
+const wrongSound = document.getElementById('wrongSound');
+const thinkingSound = document.getElementById('thinkingSound');
+
+function shuffleArray(array){ return array.sort(() => Math.random() - 0.5); }
+
+document.getElementById('startQuizBtn').addEventListener('click', ()=>{
+  const selectedCount = parseInt(numQuestionsSelect.value);
+  quizScore = 0; quizIndex = 0;
+  shuffledQuestions = shuffleArray([...quizQuestions]).slice(0, selectedCount);
+
+  quizSetup.style.display='none';
+  quizContent.style.display='block';
+  quizScoreEl.textContent=quizScore;
+  showQuestion();
+
+  // Unlock audio on first user interaction
+  [correctSound, wrongSound, thinkingSound].forEach(audio => {
+    audio.play().then(()=>{ audio.pause(); audio.currentTime=0; }).catch(()=>{});
+  });
+});
+
+function startTimer() {
+  clearInterval(timer);
+  clearTimeout(thinkingTimer);
+  timeLeft = 15;
+  document.getElementById('timer').textContent = `Time: ${timeLeft}s`;
+
+  // Trigger thinking animation after 30% time
+  thinkingTimer = setTimeout(() => { animateThinking(); }, Math.floor(timeLeft*0.3)*1000);
+
+  timer = setInterval(()=>{
     timeLeft--;
-    countdownEl.textContent = timeLeft;
-    if(timeLeft <= 0){
-      clearInterval(interval);
-      window.location.href = 'gallery.html'; 
+    document.getElementById('timer').textContent = `Time: ${timeLeft}s`;
+    if(timeLeft<0){
+      clearInterval(timer); clearTimeout(thinkingTimer);
+      quizMessage.textContent = `Time's up! ❌ Correct: ${shuffledQuestions[quizIndex].answer}`;
+      quizMessage.style.color="#ff4444";
+      wrongSound.play();
+      quizIndex++; setTimeout(showQuestion,1000);
     }
-  }, 1000);
+  },1000);
+}
+
+function animateThinking(){
+  thinkingSound.play();
+  const hintBtn = document.getElementById('hintBtn');
+  hintBtn.style.animation = 'pulse 1s infinite alternate';
+  const quizArea = document.getElementById('quizArea');
+  quizArea.style.boxShadow = '0 0 20px #ffcc00';
+  setTimeout(()=>{
+    hintBtn.style.animation='';
+    quizArea.style.boxShadow='';
+  },3000);
+}
+
+function animateScore(target){
+  let current = parseInt(quizScoreEl.textContent);
+  let increment = target>current?1:-1;
+  let interval = setInterval(()=>{
+    current += increment;
+    quizScoreEl.textContent=current;
+    if(current===target) clearInterval(interval);
+  },100);
+}
+
+function flashBackground(color){
+  document.body.style.backgroundColor=color;
+  setTimeout(()=>document.body.style.background="linear-gradient(135deg,#0f2027,#203a43,#2c5364)",500);
+}
+
+function launchConfetti(){ confetti({ particleCount:100, spread:70, origin:{y:0.6} }); }
+
+function showQuestion(){
+  if(quizIndex >= shuffledQuestions.length){
+    let percentage=(quizScore/shuffledQuestions.length)*100;
+    let performanceMsg = percentage===100 ? "Perfect Score! 🌟 You're a genius!" :
+                         percentage>=80 ? "Excellent! 👍 Great job!" :
+                         percentage>=50 ? "Good! Keep practicing! 🙂" :
+                         "Needs improvement. Try again! 💪";
+    if(percentage===100) launchConfetti();
+    quizContent.innerHTML = `<h2>Quiz Finished! Your score: ${quizScore}/${shuffledQuestions.length}</h2>
+      <p style="color:#ffd700; font-weight:bold;">${performanceMsg}</p>
+      <p>Refreshing in <span id="refreshCountdown">5</span> seconds...</p>`;
+    let countdown = 5;
+    const countdownInterval = setInterval(()=>{
+      countdown--; document.getElementById('refreshCountdown').textContent=countdown;
+      if(countdown<=0){ clearInterval(countdownInterval); location.reload(); }
+    },1000);
+    return;
+  }
+
+  const q = shuffledQuestions[quizIndex];
+  document.getElementById('quizQuestion').textContent=q.question;
+  const optionsDiv = document.getElementById('options');
+  optionsDiv.innerHTML="";
+  shuffleArray(q.options).forEach(opt=>{
+    const btn = document.createElement('button'); btn.textContent=opt; btn.className="option-btn";
+    btn.addEventListener('click', ()=>checkAnswer(opt));
+    optionsDiv.appendChild(btn);
+  });
+  quizMessage.textContent="";
+  progressBar.style.width=((quizIndex/shuffledQuestions.length)*100)+'%';
+  startTimer();
+  startTime = Date.now();
+  document.getElementById('hintBtn').disabled=false;
+  document.getElementById('skipBtn').disabled=false;
+}
+
+function checkAnswer(selected){
+  clearInterval(timer); clearTimeout(thinkingTimer);
+  const correctAnswer = shuffledQuestions[quizIndex].answer;
+  const timeTaken = Math.floor((Date.now()-startTime)/1000);
+  let bonus = timeTaken<=5?1:0;
+
+  if(selected===correctAnswer){
+    quizScore+=1+bonus;
+    animateScore(quizScore);
+    quizMessage.style.color="#00ffcc";
+    quizMessage.textContent=`Correct! 🎉${bonus? ` Answered in ${timeTaken}s → +${bonus} bonus point!` : ''}`;
+    flashBackground('#006400'); launchConfetti(); correctSound.play();
+  } else {
+    quizMessage.textContent=`Wrong! ❌ Correct: ${correctAnswer}`;
+    quizMessage.style.color="#ff4444";
+    flashBackground('#8B0000'); wrongSound.play();
+  }
+  quizIndex++;
+  setTimeout(showQuestion,1000);
+}
+
+// 50-50 Hint
+document.getElementById('hintBtn').addEventListener('click',()=>{
+  const q = shuffledQuestions[quizIndex];
+  const options = Array.from(document.getElementById('options').children);
+  const incorrect = options.filter(btn=>btn.textContent!==q.answer);
+  shuffleArray(incorrect).slice(0,2).forEach(btn=>btn.style.display='none');
+  document.getElementById('hintBtn').disabled=true;
+});
+
 </script>
 </body>
 </html>

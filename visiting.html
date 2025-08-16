@@ -375,10 +375,29 @@
         display: none;
       }
       
+      /* Typewriter effect */
       .page-title {
-        font-size: 2.5rem;
+          display: inline-block;
+          overflow: hidden;
+          border-right: 2px solid #000; /* cursor */
+          white-space: nowrap;
+          letter-spacing: 2px;
+          width: 0; /* start hidden */
+          animation: typing 2s steps(20, end) forwards; /* runs once */
       }
-      
+
+      /* Typing animation */
+      @keyframes typing {
+          from { width: 0; }
+          to { width: 100%; }
+      }
+
+      /* Cursor blink (runs while typing) */
+      @keyframes blink {
+          0%, 100% { border-color: transparent; }
+          50% { border-color: black; }
+      }
+            
       .card-container {
         padding: 2rem 1.5rem;
         margin: 1rem;
@@ -443,7 +462,7 @@
   <main class="main-content">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">📇 Visiting Card</h1>
+        <h1 class= id="visitingCardTitle">📇 Visiting Card</h1>
       </div>
 
       <div class="card-container">
@@ -478,6 +497,24 @@
       <img src="images/9.jpg" alt="Full Size Visiting Card" style="max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);">
     </div>
   </div>
+
+  <script>
+  // Ensure the typewriter runs only once per session
+  window.addEventListener('DOMContentLoaded', () => {
+      const title = document.getElementById('visitingCardTitle');
+
+      // Check if already visited
+      if (!sessionStorage.getItem('visitedPage')) {
+          title.style.borderRight = '2px solid black';
+          title.classList.add('page-title'); // trigger animation
+          sessionStorage.setItem('visitedPage', 'true');
+      } else {
+          // If already visited, show full text without animation
+          title.style.width = '100%';
+          title.style.borderRight = 'none';
+      }
+  });
+  </script>
 
   <script>
     // Download functionality
