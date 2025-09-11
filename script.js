@@ -256,7 +256,7 @@
         const celebrationStyle = document.createElement('style');
         celebrationStyle.textContent = `
             @keyframes celebrationPop {
-                0% { 
+                0% {
                     transform: scale(0) rotate(0deg);
                     opacity: 1;
                 }
@@ -264,10 +264,20 @@
                     transform: scale(1.2) rotate(180deg);
                     opacity: 1;
                 }
-                100% { 
+                100% {
                     transform: scale(0) rotate(360deg);
                     opacity: 0;
                 }
             }
         `;
         document.head.appendChild(celebrationStyle);
+
+        // Announcement Banner Close Functionality
+        const closeBtn = document.getElementById('close-banner');
+        const announcementBanner = document.getElementById('announcement-banner');
+
+        if (closeBtn && announcementBanner) {
+            closeBtn.addEventListener('click', function() {
+                announcementBanner.style.display = 'none';
+            });
+        }
